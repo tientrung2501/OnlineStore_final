@@ -13,9 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-import java.io.IOException;
-
-import hcmute.edu.vn.mobile_store.ProductListActivity;
+import hcmute.edu.vn.mobile_store.admin_area.ProductListActivity;
 import hcmute.edu.vn.mobile_store.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.customer_area.HomeActivity;

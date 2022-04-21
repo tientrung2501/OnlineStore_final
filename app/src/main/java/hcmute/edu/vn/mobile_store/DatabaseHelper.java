@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     private void copyDataBase() throws IOException {
         OutputStream os = new FileOutputStream(pathToSaveDBFile);
-        InputStream is = myContext.getAssets().open("sqlite/"+DATABASE_NAME);
+        InputStream is = myContext.getAssets().open("databases/"+DATABASE_NAME);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = is.read(buffer)) > 0) {

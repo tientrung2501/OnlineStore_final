@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniStop">
-        <activity android:name=".ProductListActivity">
+        <activity android:name=".admin_area.ProductListActivity">
 
         </activity>
         <activity android:name=".customer_area.BillListCustomerActivity" />

@@ -9,6 +9,7 @@
     android:focusableInTouchMode="true"
     android:gravity="center"
     tools:context=".identity_area.LoginActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +17,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -32,10 +35,12 @@
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_house_ministop" />
             </RelativeLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
+
                 <EditText
                     android:id="@+id/etEmail"
                     style="@style/modifiedEditText"
@@ -43,10 +48,12 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
+
                 <EditText
                     android:id="@+id/etPassword"
                     style="@style/modifiedEditText"
@@ -54,6 +61,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 style="@style/viewParent"
                 android:layout_gravity="end"
@@ -62,17 +70,19 @@
                 android:text="Quên mật khẩu"
                 android:textColor="@color/blueMinistop"
                 android:textSize="@dimen/newsMoreTextSize" />x
+
             <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                 android:id="@+id/cirLoginButton"
                 style="@style/loginButton"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                android:text="Đăng nhập"
                 android:onClick="doLogin"
+                android:text="Đăng nhập"
                 app:initialCornerAngle="27dp"
                 app:spinning_bar_color="#FFF"
                 app:spinning_bar_padding="6dp"
                 app:spinning_bar_width="4dp" />
+
             <TextView
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
