@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/product_manage"
+        android:enabled="true"
+        android:icon="@drawable/ic_product_manage"
+        android:title="Quản lý sản phẩm"/>
+    <item
+        android:id="@+id/bill_manage"
+        android:enabled="true"
+        android:icon="@drawable/ic_order_manage"
+        android:title="Quản lý đơn hàng"/>
+    <item
+        android:id="@+id/user_manage"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_manage"
+        android:title="Quản lý người dùng"/>
+</menu>

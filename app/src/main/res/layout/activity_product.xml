@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ivBackground"
         android:textSize="25dp"
-        android:text="Tên sản phẩm sẽ đặt ở đây và không muốn nói nhiều gì hết"
+        android:text="Tên sản phẩm"
         android:textColor="@color/black"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"

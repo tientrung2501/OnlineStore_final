@@ -56,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
 
         //-----------KHỞI TẠO GIÁ TRỊ CẦN THIẾT----------
         curUserId = Integer.parseInt(SharedPrefs.getInstance().get(CURRENT_ID, String.class));
-        //---------KẾT THÚC KHỞI TẠO GIÁ THIẾT----------
+        //---------KẾT THÚC KHỞI TẠO GIÁ TRỊ CẦN THIẾT----------
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.cart);

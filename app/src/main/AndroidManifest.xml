@@ -20,6 +20,12 @@
         <activity
             android:name=".identity_area.VerifyRegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".admin_area.UserListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin_area.BillListActivity"
+            android:exported="false" />
         <activity android:name=".admin_area.ProductListActivity"></activity>
         <activity android:name=".customer_area.BillListCustomerActivity" />
         <activity android:name=".customer_area.ProductActivity" />
