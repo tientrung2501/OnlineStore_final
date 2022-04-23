@@ -679,7 +679,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Name", user.getName());
         values.put("Username", user.getUsername()  );
         values.put("Email", user.getEmail());
-        values.put("Password", user.getPassword());
+        values.put("Password", md5(user.getPassword()));
         values.put("Image", user.getImage());
         boolean updateSuccessful = db.update("User", values,
                 "Id = ?", new String[]{ String.valueOf(user.getId()) }) > 0;
@@ -712,6 +712,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql = "SELECT * FROM User WHERE Email = '" + email + "'";
         int recordCount = db.rawQuery(sql, null).getCount();
         db.close();
+        Log.i(TAG, "emailExists: "+email+recordCount);
         if (recordCount > 0)
             return true;
         else
