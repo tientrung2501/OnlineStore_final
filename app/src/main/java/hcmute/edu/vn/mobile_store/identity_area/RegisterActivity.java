@@ -24,12 +24,15 @@ import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import hcmute.edu.vn.mobile_store.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
+import hcmute.edu.vn.mobile_store.VerifyRegisterActivity;
 import hcmute.edu.vn.mobile_store.models.User;
+import hcmute.edu.vn.mobile_store.utils.SendMail;
 
 import static hcmute.edu.vn.mobile_store.utils.Utility.getBitmapAsByteArray;
 
@@ -169,18 +172,19 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
             User user = new User(name,username,email,password,byteivImage);
-            boolean createSuccessful = dbHelper.addUser(user);
-
-            int i = 1;
-            if (createSuccessful)
-            {
-                startActivity(new Intent(this, LoginActivity.class));
-                overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
-                Toast.makeText(this, "Bạn đã đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(this, "Có lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
-            }
+            Intent i1 = new Intent(RegisterActivity.this, VerifyRegisterActivity.class);
+            i1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i1.putExtra("user",user);
+            String subject = "OTP Verify";
+            int randomOTP = new Random().nextInt(900000) + 100000;
+            String stringOTP=String.valueOf(randomOTP);
+            String message = "OTP: "+randomOTP;
+            i1.putExtra("otp",stringOTP);
+            SendMail sm = new SendMail(this, email, subject, message);
+            sm.execute();
+            overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
+            Toast.makeText(this, "Vui lòng xác thực", Toast.LENGTH_SHORT).show();
+            startActivity(i1);
         }
     }
     public boolean isValidPassword(String password) { //Tối thiểu 8 ký tự, 1 chữ cái, 1 số và 1 ký tự đặc biệt
