@@ -6,7 +6,7 @@ android:layout_height="match_parent"
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:background="@color/yellowMinistop"
+android:background="@color/Blue"
 tools:context=".customer_area.BillListCustomerActivity">
     <TextView
         android:id="@+id/textViewCategory"
@@ -16,7 +16,7 @@ tools:context=".customer_area.BillListCustomerActivity">
         android:textSize="22dp"
         android:paddingLeft="20dp"
         android:textColor="@color/whiteTextColor"
-        android:background="@color/blueMint"
+        android:background="@color/blueMinistop"
         android:layout_alignParentTop="true"/>
 
     <androidx.cardview.widget.CardView
@@ -59,6 +59,9 @@ tools:context=".customer_area.BillListCustomerActivity">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="@color/blueMint"
+        android:background="@drawable/nav_bar_cornercut"
+        android:elevation="16dp"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

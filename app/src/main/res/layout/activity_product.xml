@@ -133,7 +133,10 @@
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blueMint"
+            android:background="@drawable/nav_bar_cornercut"
+            android:elevation="16dp"
+            app:itemTextColor="@drawable/selector"
+            app:itemIconTint="@drawable/selector"
             app:menu="@menu/bottom_vavigation_product_menu" />
     </LinearLayout>
 

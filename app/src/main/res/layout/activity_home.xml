@@ -87,7 +87,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blueMint"
+                android:background="@color/blueMinistop"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewCategory"
@@ -119,7 +119,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blueMint"
+                android:background="@color/blueMinistop"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewProduct"
@@ -153,7 +153,10 @@
                 style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blueMint"
+                android:background="@drawable/nav_bar_cornercut"
+                android:elevation="16dp"
+                app:itemTextColor="@drawable/selector"
+                app:itemIconTint="@drawable/selector"
                 app:menu="@menu/bottom_navigation_menu" />
         </LinearLayout>
     </LinearLayout>

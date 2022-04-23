@@ -114,6 +114,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="@color/blueMint"
+        android:background="@drawable/nav_bar_cornercut"
+        android:elevation="16dp"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>
