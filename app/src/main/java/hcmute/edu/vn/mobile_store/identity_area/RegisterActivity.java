@@ -28,9 +28,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
-import hcmute.edu.vn.mobile_store.VerifyRegisterActivity;
 import hcmute.edu.vn.mobile_store.models.User;
 import hcmute.edu.vn.mobile_store.utils.SendMail;
 

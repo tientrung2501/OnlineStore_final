@@ -1,18 +1,17 @@
-package hcmute.edu.vn.mobile_store;
-
-import androidx.appcompat.app.AppCompatActivity;
+package hcmute.edu.vn.mobile_store.identity_area;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.models.User;
-import hcmute.edu.vn.mobile_store.utils.SendMail;
 
 public class VerifyRegisterActivity extends AppCompatActivity {
     Button btnConfirm;

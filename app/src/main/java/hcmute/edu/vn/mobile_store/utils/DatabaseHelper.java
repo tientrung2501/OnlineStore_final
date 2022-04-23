@@ -1,4 +1,4 @@
-package hcmute.edu.vn.mobile_store;
+package hcmute.edu.vn.mobile_store.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;

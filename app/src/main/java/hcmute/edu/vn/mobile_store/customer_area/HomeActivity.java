@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 
 import hcmute.edu.vn.mobile_store.adapter.CategoryListAdapter;
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.adapter.ProductListCustomerAdapter;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.models.Category;
