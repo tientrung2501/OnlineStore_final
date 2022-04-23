@@ -22,9 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
-import hcmute.edu.vn.mobile_store.adapter.BillListCustomerAdapter;
 import hcmute.edu.vn.mobile_store.adapter.UserListAdapter;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
 import hcmute.edu.vn.mobile_store.models.User;

@@ -38,12 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.adapter.ProductListAdapter;
-import hcmute.edu.vn.mobile_store.customer_area.BillListCustomerActivity;
-import hcmute.edu.vn.mobile_store.customer_area.CartActivity;
-import hcmute.edu.vn.mobile_store.customer_area.InfoActivity;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
 import hcmute.edu.vn.mobile_store.models.Brand;
 import hcmute.edu.vn.mobile_store.models.Category;

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 
 import hcmute.edu.vn.mobile_store.admin_area.ProductListActivity;
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.customer_area.HomeActivity;
 import hcmute.edu.vn.mobile_store.models.User;

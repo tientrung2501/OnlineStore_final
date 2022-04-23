@@ -3,7 +3,7 @@ package hcmute.edu.vn.mobile_store.customer_area;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import hcmute.edu.vn.mobile_store.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.models.Bill;
 import hcmute.edu.vn.mobile_store.models.BillDetail;
