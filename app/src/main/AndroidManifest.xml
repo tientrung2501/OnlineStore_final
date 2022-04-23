@@ -12,18 +12,15 @@
     <application
         android:name=".utils.App"
         android:allowBackup="false"
-        android:icon="@drawable/ic_house_ministop"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniStop">
         <activity
-            android:name=".admin_area.UserListActivity"
+            android:name=".VerifyRegisterActivity"
             android:exported="false" />
-        <activity
-            android:name=".admin_area.BillListActivity"
-            android:exported="false" />
-        <activity android:name=".admin_area.ProductListActivity" />
+        <activity android:name=".admin_area.ProductListActivity"></activity>
         <activity android:name=".customer_area.BillListCustomerActivity" />
         <activity android:name=".customer_area.ProductActivity" />
         <activity
