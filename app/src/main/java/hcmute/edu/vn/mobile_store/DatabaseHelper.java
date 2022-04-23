@@ -539,6 +539,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return recordCount;
     }
 
+
     public List<Bill> getBills() {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
         String query = "SELECT * FROM Bill";

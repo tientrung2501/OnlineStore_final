@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainUserAdmin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +12,7 @@
         android:id="@+id/tvManage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quản lý sản phẩm"
+        android:text="Quản lý người dùng"
         android:textSize="22dp"
         android:paddingLeft="10dp"
         android:textColor="@color/whiteTextColor"
@@ -19,14 +20,14 @@
         android:layout_alignParentTop="true"/>
 
     <Button
-        android:id="@+id/btnCreateProduct"
+        android:id="@+id/btnCreateUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tvManage"
         android:backgroundTint="@color/blue900"
         android:layout_margin="10dp"
-        android:text="TẠO SẢN PHẨM" />
+        android:text="THÊM NGƯỜI DÙNG" />
 
     <TextView
         android:id="@+id/tvLogOut"
@@ -41,7 +42,7 @@
         android:textSize="20dp"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvBillDetail"
+        android:id="@+id/cvListUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
@@ -49,10 +50,10 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         app:cardBackgroundColor="@color/whiteTextColor"
-        android:layout_below="@id/btnCreateProduct"
+        android:layout_below="@id/tvLogOut"
         app:cardCornerRadius="10dp">
         <ListView
-            android:id="@+id/listViewProduct"
+            android:id="@+id/listViewUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -62,7 +63,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:divider="@drawable/margin_divider"
-            android:layout_below="@+id/btnCreateProduct"/>
+            android:layout_below="@+id/tvLogOut"/>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

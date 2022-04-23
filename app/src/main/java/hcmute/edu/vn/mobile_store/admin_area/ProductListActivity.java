@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -39,6 +41,9 @@ import java.util.Map;
 import hcmute.edu.vn.mobile_store.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.adapter.ProductListAdapter;
+import hcmute.edu.vn.mobile_store.customer_area.BillListCustomerActivity;
+import hcmute.edu.vn.mobile_store.customer_area.CartActivity;
+import hcmute.edu.vn.mobile_store.customer_area.InfoActivity;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
 import hcmute.edu.vn.mobile_store.models.Brand;
 import hcmute.edu.vn.mobile_store.models.Category;
@@ -66,10 +71,33 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
         dbHelper = new DatabaseHelper(this, getFilesDir().getAbsolutePath());
 
-        loadData();
-
         Button btnCreateProduct = (Button) findViewById(R.id.btnCreateProduct);
         TextView tvLogOut = findViewById(R.id.tvLogOut);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.product_manage);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.product_manage:
+                        return true;
+                    case R.id.bill_manage:
+                        startActivity(new Intent(getApplicationContext(), BillListActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.user_manage:
+                        startActivity(new Intent(getApplicationContext(), UserListActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        loadData();
 
         tvLogOut.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -372,7 +400,7 @@ public class ProductListActivity extends AppCompatActivity {
     private void loadData()
     {
         List<Product> lProduct = dbHelper.getProducts();
-        final ListView listView = (ListView) findViewById(R.id.listView);
+        final ListView listView = (ListView) findViewById(R.id.listViewProduct);
         listView.setAdapter(new ProductListAdapter(this, lProduct));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

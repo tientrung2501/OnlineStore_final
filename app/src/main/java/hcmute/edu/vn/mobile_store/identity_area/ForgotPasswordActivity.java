@@ -12,7 +12,7 @@ import android.widget.Toast;
 import hcmute.edu.vn.mobile_store.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.models.User;
-import hcmute.edu.vn.mobile_store.utils.SendMail;
+//import hcmute.edu.vn.mobile_store.utils.SendMail;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etMail;
@@ -45,8 +45,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             User u = db.getUser(email);
             u.setPassword(message);
             db.updateUser(u);
-            SendMail sm = new SendMail(this, email, subject, message);
-            sm.execute();
+//            SendMail sm = new SendMail(this, email, subject, message);
+//            sm.execute();
         }
         else{
             Toast.makeText(this,"Email không tồn tại",Toast.LENGTH_SHORT).show();
