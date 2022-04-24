@@ -138,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
         Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
         byte[] byteivImage = getBitmapAsByteArray(bitmap);
+        int role = 2;
 
         if(TextUtils.isEmpty(name))
         {
@@ -170,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
             etUsername.setError("Username đã tồn tạị!");
         }
         else{
-            User user = new User(name,username,email,password,byteivImage);
+            User user = new User(name,username,email,password,byteivImage,role);
             Intent i1 = new Intent(RegisterActivity.this, VerifyRegisterActivity.class);
             i1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i1.putExtra("user",user);

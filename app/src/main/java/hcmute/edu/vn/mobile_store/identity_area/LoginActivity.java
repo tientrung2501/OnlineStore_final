@@ -22,6 +22,7 @@ import hcmute.edu.vn.mobile_store.utils.SharedPrefs;
 
 import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_ID;
 import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_NAME;
+import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_ROLE;
 
 public class LoginActivity extends AppCompatActivity {
     DatabaseHelper dbHelper= null;
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (userId != "" && userId != null)
         {
-            if (curUser.getEmail().equals("admin@gmail.com"))
+            if (curUser.getRole() != 2)
             {
                 startActivity(new Intent(this, ProductListActivity.class));
                 finish();
@@ -82,8 +83,9 @@ public class LoginActivity extends AppCompatActivity {
 
             SharedPrefs.getInstance().put(CURRENT_ID, String.valueOf(curUser.getId()));
             SharedPrefs.getInstance().put(CURRENT_NAME, curUser.getName());
+            SharedPrefs.getInstance().put(CURRENT_ROLE, curUser.getRole());
 
-            if (curUser.getEmail().equals("admin@gmail.com"))
+            if (curUser.getRole() != 2)
             {
                 startActivity(new Intent(this, ProductListActivity.class));
                 finish();

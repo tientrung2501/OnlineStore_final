@@ -6,8 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer_area.ProductListCustomerActivity"
-    android:background="@color/yellowMinistop">
-
+    android:background="@color/Blue">
 
     <TextView
         android:id="@+id/tvHeader"
@@ -17,7 +16,7 @@
         android:textSize="22dp"
         android:paddingLeft="20dp"
         android:textColor="@color/whiteTextColor"
-        android:background="@color/blueMint"
+        android:background="@color/blueMinistop"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_alignParentTop="true"/>
 

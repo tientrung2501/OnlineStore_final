@@ -5,45 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/blue50"
+    android:background="@color/Blue"
     android:focusableInTouchMode="true"
     android:gravity="center"
     tools:context=".identity_area.LoginActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:paddingTop="300dp"
-        android:background="@drawable/ic_login">
+        android:background="@drawable/ic_login"
+        android:paddingTop="300dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle1"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:background="@drawable/rectangle1">
+            android:padding="45dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:outlineSpotShadowColor="@color/black"
                 android:paddingStart="5dp"
-                android:paddingTop="35dp"
                 android:text="Đăng nhập"
                 android:textColor="@color/blue900"
                 android:textSize="25dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin">
+                android:layout_marginTop="@dimen/loginViewsMargin"
+                android:textColorHint="@color/blueMinistop">
 
                 <EditText
                     android:id="@+id/etEmail"
                     style="@style/modifiedEditText"
+                    android:backgroundTintMode="add"
+                    android:backgroundTint="@color/gray"
                     android:hint="@string/login_email_hint"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
@@ -52,11 +56,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent"
-                android:layout_marginTop="@dimen/loginViewsMargin">
+                android:textColorHint="@color/blueMinistop">
 
                 <EditText
                     android:id="@+id/etPassword"
                     style="@style/modifiedEditText"
+                    android:backgroundTintMode="add"
+                    android:backgroundTint="@color/gray"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
                     android:maxLines="1" />
@@ -66,6 +72,7 @@
                 style="@style/viewParent"
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
                 android:onClick="onForgotClick"
                 android:text="Quên mật khẩu"
                 android:textColor="@color/blueMinistop"
@@ -92,8 +99,9 @@
                 android:textColor="@color/blueMinistop"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-        </LinearLayout>.
-    </ScrollView>
+        </LinearLayout>
+        .
+    </LinearLayout>
 
 
 </RelativeLayout>

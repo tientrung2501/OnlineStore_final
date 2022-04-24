@@ -5,21 +5,23 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 
-    public User(int id, String name, String username, String email, String password, byte[] image) {
+    public User(int id, String name, String username, String email, String password, byte[] image, int role) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.image = image;
+        this.role = role;
     }
 
-    public User(String name, String username, String email, String password, byte[] image) {
+    public User(String name, String username, String email, String password, byte[] image, int role) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.image = image;
+        this.role = role;
     }
 
     public User()
@@ -74,10 +76,19 @@ public class User implements Serializable {
         this.image = image;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     private int id;
     private String name;
     private String username;
     private String email;
     private String password;
     private byte[] image;
+    private int role;
 }

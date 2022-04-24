@@ -616,7 +616,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getBlob(5));
+                    cursor.getBlob(5),
+                    cursor.getInt(6));
         }
         cursor.close();
         db.close();
@@ -635,7 +636,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getBlob(5));
+                    cursor.getBlob(5),
+                    cursor.getInt(6));
         }
         cursor.close();
         db.close();
@@ -653,7 +655,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getBlob(5));
+                    cursor.getBlob(5),
+                    cursor.getInt(6));
             list.add(user);
         }
         db.close();
@@ -663,12 +666,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean addUser(User user) { //Đăng ký User
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
         ContentValues values = new ContentValues();
-        String test = md5(user.getPassword());
         values.put("Name", user.getName());
         values.put("Username", user.getUsername()  );
         values.put("Email", user.getEmail());
         values.put("Password", md5(user.getPassword()));
         values.put("Image", user.getImage());
+        values.put("Role", user.getRole());
         boolean createSuccessful = db.insert("User", null, values) > 0;
         db.close();
         return createSuccessful;
@@ -682,10 +685,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("Email", user.getEmail());
         values.put("Password", md5(user.getPassword()));
         values.put("Image", user.getImage());
+        values.put("Role", user.getRole());
         boolean updateSuccessful = db.update("User", values,
                 "Id = ?", new String[]{ String.valueOf(user.getId()) }) > 0;
         db.close();
         return updateSuccessful;
+    }
+
+    public boolean deleteUser(int id) {
+        boolean deleteSuccessful = false;
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
+        deleteSuccessful = db.delete("User", "Id ='" + id + "'", null) > 0;
+        db.close();
+        return deleteSuccessful;
     }
 
     public int countUser() {
