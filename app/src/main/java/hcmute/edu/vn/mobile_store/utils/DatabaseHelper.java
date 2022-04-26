@@ -221,6 +221,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+    public List<Product> searchProducts(String search) { //Tìm kiếm danh sách tất cả sản phẩm
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
+        String query = "SELECT * FROM Product p WHERE p.name like '%"+search+"%'";
+        Cursor cursor = db.rawQuery(query, null);
+        List<Product> list = new ArrayList<Product>();
+        while(cursor.moveToNext()) {
+            Product product = new Product(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getDouble(2),
+                    cursor.getString(3),
+                    cursor.getInt(4),
+                    cursor.getBlob(5),
+                    cursor.getInt(6),
+                    cursor.getInt(7));
+            list.add(product);
+        }
+        db.close();
+        return list;
+    }
 
     public List<Product> getProductsByCategoryId(int categoryId) { //Lấy danh sách dựa trên mã danh mục
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);

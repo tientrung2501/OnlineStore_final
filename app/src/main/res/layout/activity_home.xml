@@ -18,6 +18,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_search_24"
@@ -26,6 +27,7 @@
             android:layout_marginLeft="5dp"/>
 
         <EditText
+            android:id="@+id/edSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Tìm sản phẩm"

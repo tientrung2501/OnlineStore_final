@@ -24,32 +24,33 @@
         android:id="@+id/lnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/ln_search_input"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tvHeader">
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
+        tools:layout_editor_absoluteX="10dp">
 
         <ImageButton
+            android:id="@+id/btnFind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_search_24"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_marginLeft="5dp"/>
+            android:src="@drawable/ic_baseline_search_24"
+            android:onClick="searchProduct"/>
 
         <EditText
+            android:id="@+id/edFind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Tìm sản phẩm"
-            android:textSize="25dp"
-            android:maxLines="1"
-            android:inputType="text"
             android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:hint="Tìm sản phẩm"
+            android:inputType="text"
+            android:maxLines="1"
             android:textColorHint="#B3B3B3"
-            android:background="@null"/>
+            android:textSize="25dp" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

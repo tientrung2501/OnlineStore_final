@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +27,8 @@ import hcmute.edu.vn.mobile_store.utils.SharedPrefs;
 
 public class HomeActivity extends AppCompatActivity {
     DatabaseHelper dbHelper= null;
-
+    ImageButton btnSearch;
+    EditText edtSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,27 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         loadData();
+        edtSearch = (EditText)findViewById(R.id.edSearch);
+
+        btnSearch = (ImageButton) findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search();
+            }
+        });
+
+    }
+    private void search(){
+        String search = edtSearch.getText().toString();
+        if(search.equals("")){
+            Toast.makeText(this,"Nhập nội dung tìm kiếm",Toast.LENGTH_SHORT).show();
+        }else{
+            Intent i = new Intent(HomeActivity.this,ProductListCustomerActivity.class);
+            i.putExtra("search",search);
+            i.putExtra("current_category_id",0);
+            startActivity(i);
+        }
     }
     private void loadData()
     {
