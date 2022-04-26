@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class BillListCustomerActivity extends AppCompatActivity {
         });
 
         loadData();
+
     }
 
     private void loadData()
@@ -70,9 +72,17 @@ public class BillListCustomerActivity extends AppCompatActivity {
 
         if ( dbHelper.countBillsInUser(curUserId) > 0 ){//User đã có giỏ hàng chưa
             listView.setAdapter(new BillListCustomerAdapter(this, dbHelper.getBillsByUserId(curUserId)));
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    Intent intentBill = new Intent(BillListCustomerActivity.this , BillDetailCustomerActivity.class);
+                    intentBill.putExtra("current_bill_id", String.valueOf(parent.getItemIdAtPosition(position)));
+                    startActivity(intentBill);
+                }
+            });
         }
-        else
-        {//User chưa có giỏ hàng
+        else { //User chưa có giỏ hàng
             RelativeLayout mainLayout = findViewById(R.id.mainLayout);
 
             RelativeLayout.LayoutParams lparams = new RelativeLayout.LayoutParams(

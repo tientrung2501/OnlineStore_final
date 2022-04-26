@@ -561,7 +561,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Bill> getBills() {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
-        String query = "SELECT * FROM Bill";
+        String query = "SELECT * FROM Bill WHERE Status != 'incomplete'";
         Cursor cursor = db.rawQuery(query, null);
         List<Bill> list = new ArrayList<Bill>();
         while(cursor.moveToNext()) {

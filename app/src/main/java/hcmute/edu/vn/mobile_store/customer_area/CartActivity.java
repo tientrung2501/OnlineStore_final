@@ -54,9 +54,8 @@ public class CartActivity extends AppCompatActivity {
         formatterDate = new SimpleDateFormat("dd-MM-yyyy");
 
 
-        //-----------KHỞI TẠO GIÁ TRỊ CẦN THIẾT----------
+        //Lấy userID hiện tại
         curUserId = Integer.parseInt(SharedPrefs.getInstance().get(CURRENT_ID, String.class));
-        //---------KẾT THÚC KHỞI TẠO GIÁ TRỊ CẦN THIẾT----------
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.cart);
@@ -131,11 +130,11 @@ public class CartActivity extends AppCompatActivity {
                                     Bill curCart = dbHelper.getIncompleteBillByUserId(curUserId);
                                     curCart.setAddress(address);
                                     curCart.setPhone(phone);
-                                    curCart.setStatus("complete");
+                                    curCart.setStatus("processing");
                                     curCart.setDate(dateBill);
 
                                     dbHelper.updateBill(curCart);
-                                    Toast.makeText(getApplicationContext(), "Bạn đã đặt hành thành công!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Bạn đã đặt hàng thành công!", Toast.LENGTH_SHORT).show();
                                     loadData();
                                     dialog.dismiss();
                                 }
@@ -155,7 +154,7 @@ public class CartActivity extends AppCompatActivity {
         Button btnOrderNow = findViewById(R.id.btnOrderNow);
         androidx.cardview.widget.CardView cvBillDetail = findViewById(R.id.cvBillDetail);
 
-        if (dbHelper.isUserHasCart(curUserId)){//User đã có giỏ hàng chưa
+        if (dbHelper.isUserHasCart(curUserId)){//User đã có giỏ hàng chưa. Trường hợp đã có giỏ hàng.
             Bill curCart = dbHelper.getIncompleteBillByUserId(curUserId);
             List<BillDetail> lBillDetail = dbHelper.getBillDetailByBillId(curCart.getId());
 

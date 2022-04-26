@@ -12,7 +12,7 @@
         android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="✎ Tất cả sản phẩm"
+        android:text="Danh sách sản phẩm"
         android:textSize="22dp"
         android:paddingLeft="20dp"
         android:textColor="@color/whiteTextColor"

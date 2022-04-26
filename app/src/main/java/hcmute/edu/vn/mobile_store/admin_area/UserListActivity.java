@@ -152,7 +152,7 @@ public class UserListActivity extends AppCompatActivity {
 
             TextView tvNone = new TextView(UserListActivity.this);
             tvNone.setTextSize(20);
-            tvNone.setText("Oops! Lỗi rồi");
+            tvNone.setText("Bạn không có quyền truy cập vào đây!");
             tvNone.setLayoutParams(lparams);
             mainLayout.addView(tvNone);
         } else {

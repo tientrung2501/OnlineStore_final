@@ -66,13 +66,26 @@ public class BillListCustomerAdapter  extends BaseAdapter {
         holder.id.setText("Mã đơn hàng: "+ String.valueOf(bill.getId()));
         holder.price.setText("Giá:" + FormatPrice(bill.getTotalPrice()));
         holder.date.setText("Ngày đặt hàng: " + bill.getDate());
-        if (bill.getStatus().equals("complete"))
+        if (bill.getStatus().equals("processing"))
         {
-            holder.status.setText("Đang giao hàng");
+            holder.status.setText("Đang chờ xác nhận");
             holder.status.setTextColor(Color.rgb(255,158,0));
         }
-        else
+        else if (bill.getStatus().equals("delivery"))
         {
+            holder.status.setText("Đang giao hàng");
+            holder.status.setTextColor(Color.rgb(255,158,0));
+        }
+        else if (bill.getStatus().equals("complete"))
+        {
+            holder.status.setText("Đã nhận hàng");
+            holder.status.setTextColor(Color.rgb(0,255,0));
+        }
+        else if (bill.getStatus().equals("cancel"))
+        {
+            holder.status.setText("Đã hủy");
+            holder.status.setTextColor(Color.rgb(255,0,0));
+        } else {
             holder.status.setText(bill.getStatus());
         }
         return convertView;

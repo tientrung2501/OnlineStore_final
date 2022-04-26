@@ -14,9 +14,9 @@
             <ImageView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_product_background"
+                android:background="@drawable/border"
                 android:layout_marginLeft="30dp"/>
         </LinearLayout>
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="23dp"
-                android:text="Tên sản phẩm sẽ đặt ở đây và không muốn nói nhiều gì hết"
+                android:text="Tên sản phẩm sẽ đặt ở đây"
                 android:textColor="@color/black"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="30dp"

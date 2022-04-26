@@ -8,9 +8,9 @@
         android:id="@+id/ivImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/ic_product_background"
         android:layout_margin="10dp"
         android:padding="10dp"
+        android:background="@drawable/border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -29,7 +29,8 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
         android:text="Tên của Loại"
         android:textSize="12dp"
         android:maxLines="2"
@@ -39,10 +40,41 @@
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
         android:text="Giá"
-        android:textSize="10dp"
+        android:textSize="12dp"
         android:textColor="@color/red"
         app:layout_constraintStart_toEndOf="@id/ivImage"
         app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingStart="5dp"
+        android:weightSum="10"
+        app:layout_constraintStart_toEndOf="@id/ivImage"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice">
+
+        <RatingBar
+            android:id="@+id/ratingbar_item_card"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical
+"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="5"
+            android:stepSize="0.1" />
+
+        <TextView
+            android:id="@+id/txt_rating_item_card"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
+            android:text="(5)" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
