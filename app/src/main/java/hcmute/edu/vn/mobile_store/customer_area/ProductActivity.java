@@ -142,7 +142,7 @@ public class ProductActivity extends AppCompatActivity {
                                 String dateBill = formatterDate.format(date);
 
                                 int curUserId = Integer.parseInt(SharedPrefs.getInstance().get(CURRENT_ID, String.class));
-                                if (!dbHelper.isUserHasCart(curUserId)){//User đã có giỏ hàng chưa
+                                if (!dbHelper.isUserHasCart(curUserId)){//User đã có giỏ hàng chưa. Trường hợp chưa có.
                                     if (dbHelper.addBill(new Bill("", 0, curUserId, "incomplete", "" , dateBill))  )
                                         Toast.makeText(getApplicationContext(), "Bạn vừa tạo đơn hàng mới.", Toast.LENGTH_SHORT).show();
                                     else

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
+import hcmute.edu.vn.mobile_store.customer_area.BillDetailCustomerActivity;
+import hcmute.edu.vn.mobile_store.customer_area.BillListCustomerActivity;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.adapter.BillListCustomerAdapter;
@@ -113,6 +116,15 @@ public class BillListActivity extends AppCompatActivity {
             mainLayout.addView(tvNone);
         } else {
             listView.setAdapter(new BillListCustomerAdapter(this, billList));
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    Intent intentBill = new Intent(BillListActivity.this , BillDetailCustomerActivity.class);
+                    intentBill.putExtra("current_bill_id", String.valueOf(parent.getItemIdAtPosition(position)));
+                    startActivity(intentBill);
+                }
+            });
         }
     }
 }

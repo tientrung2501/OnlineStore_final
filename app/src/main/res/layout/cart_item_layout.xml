@@ -13,7 +13,7 @@
         android:layout_height="80dp"
         android:layout_margin="10dp"
         android:src="@drawable/empty_box"
-        android:background="@drawable/ic_product_background"
+        android:background="@drawable/border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
