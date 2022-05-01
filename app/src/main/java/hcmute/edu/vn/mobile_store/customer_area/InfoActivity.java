@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import hcmute.edu.vn.mobile_store.ChangePasswordActivity;
+import hcmute.edu.vn.mobile_store.identity_area.RegisterActivity;
+import hcmute.edu.vn.mobile_store.identity_area.VerifyRegisterActivity;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
@@ -22,6 +26,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +45,7 @@ public class InfoActivity extends AppCompatActivity {
     DatabaseHelper dbHelper= null;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSTION_CODE = 1001;
-
+    Button btnChangePass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +138,16 @@ public class InfoActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+        btnChangePass = (Button) findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i1 = new Intent(InfoActivity.this, ChangePasswordActivity.class);
+                i1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i1.putExtra("user",userIsLogin);
+                startActivity(i1);
             }
         });
     }
