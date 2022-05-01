@@ -1,4 +1,7 @@
-package hcmute.edu.vn.mobile_store;
+package hcmute.edu.vn.mobile_store.customer_area;
+
+import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_ID;
+import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +17,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
 import hcmute.edu.vn.mobile_store.models.User;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
+import hcmute.edu.vn.mobile_store.utils.SharedPrefs;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     DatabaseHelper dbHelper= null;
@@ -45,8 +50,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String confirmPass = edConfirmPass.getText().toString();
         String oldPassDB = user.getPassword();
         System.out.println(oldPassDB);
-        System.out.println(oldPassTyping);
-        System.out.println(oldPassTyping);
+        System.out.println(md5(oldPassTyping));
+        System.out.println(newPass);
         if(md5(oldPassTyping).equals(oldPassDB)){
             if (!isValidPassword(newPass))
             {
@@ -55,9 +60,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
             else{
                 if(newPass.equals(confirmPass))
                 {
-                    User newUser = new User(user.getName(),user.getUsername(),user.getEmail(),newPass,user.getImage(),user.getRole());
-                    dbHelper.updateUser(newUser);
+                    user.setPassword(newPass);
+                    dbHelper.updateUser(user);
                     //Logout
+                    SharedPrefs.getInstance().put(CURRENT_ID, "");
+                    SharedPrefs.getInstance().put(CURRENT_NAME, null);
                     startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class));
                     Toast.makeText(ChangePasswordActivity.this,"Đổi mật khẩu thành công",Toast.LENGTH_SHORT).show();
                 }

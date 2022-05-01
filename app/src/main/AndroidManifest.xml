@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniStop">
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".customer_area.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".customer_area.BillDetailCustomerActivity"

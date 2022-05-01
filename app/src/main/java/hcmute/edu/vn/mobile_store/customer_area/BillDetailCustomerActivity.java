@@ -45,11 +45,11 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
 
         //Lấy userID hiện tại
         curUserId = Integer.parseInt(SharedPrefs.getInstance().get(CURRENT_ID, String.class));
-        user = dbHelper.getUser(curUserId);
 
         // Lấy hóa đơn đã chọn ở trang trước
         billId = Integer.parseInt(getIntent().getStringExtra("current_bill_id"));
         curBill = dbHelper.getBill(billId);
+        user = dbHelper.getUser(curBill.getUserId());
 
         // Lấy dữ liệu thông tin chi tiết đơn hàng
         loadData();
@@ -88,6 +88,7 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
         listView.setAdapter(new BillDetailAdapter(this, lBillDetail,lProduct));
 
         if (user.getRole() != 2){ //User không phải là khách hàng
+            btnConfirmOrder.setText("Xác nhận đơn hàng");
             // Chỉ hiện nút xác nhận khi đơn hàng chưa được xác nhận
             if (!curBill.getStatus().equals("processing")) {
                 btnConfirmOrder.setVisibility(View.GONE);
@@ -99,6 +100,7 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
         }
         else
         {
+            btnConfirmOrder.setText("Đã nhận hàng");
             // Chỉ hiện nút xác nhận khi đơn hàng được vận chuyển
             if (!curBill.getStatus().equals("delivery")) {
                 btnConfirmOrder.setVisibility(View.GONE);
@@ -144,8 +146,6 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
 
     public void confirmOrder (View view) {
         if (user.getRole() != 2){ //User không phải là khách hàng
-            Button btnConfirmOrder = findViewById(R.id.cirConfirmOrderButton);
-            btnConfirmOrder.setText("Xác nhận đơn hàng");
             curBill.setStatus("delivery");
 
             dbHelper.updateBill(curBill);

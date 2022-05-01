@@ -5,9 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import hcmute.edu.vn.mobile_store.ChangePasswordActivity;
-import hcmute.edu.vn.mobile_store.identity_area.RegisterActivity;
-import hcmute.edu.vn.mobile_store.identity_area.VerifyRegisterActivity;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.identity_area.LoginActivity;
