@@ -49,9 +49,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edConfirmPass=(EditText)findViewById(R.id.editConfirmPass);
         String confirmPass = edConfirmPass.getText().toString();
         String oldPassDB = user.getPassword();
-        System.out.println(oldPassDB);
-        System.out.println(md5(oldPassTyping));
-        System.out.println(newPass);
+
         if(md5(oldPassTyping).equals(oldPassDB)){
             if (!isValidPassword(newPass))
             {

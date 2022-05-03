@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.models.User;
-//import hcmute.edu.vn.mobile_store.utils.SendMail;
+import hcmute.edu.vn.mobile_store.utils.SendMail;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etMail;
@@ -41,15 +43,25 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         boolean check = db.emailExists(email);
         if(check){
             String subject = "Reset Password";
-            String message = "AbcXyz123@";
+            String newPass= generateRandomPassword();
+            String message = "Your new password: "+newPass;
             User u = db.getUser(email);
-            u.setPassword(message);
+            u.setPassword(newPass);
             db.updateUser(u);
-//            SendMail sm = new SendMail(this, email, subject, message);
-//            sm.execute();
+            SendMail sm = new SendMail(this, email, subject, message);
+            sm.execute();
         }
         else{
             Toast.makeText(this,"Email không tồn tại",Toast.LENGTH_SHORT).show();
         }
+    }
+    public static String generateRandomPassword() {
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+                +"lmnopqrstuvwxyz!@#$%&";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(8);
+        for (int i = 0; i < 8; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
     }
 }
