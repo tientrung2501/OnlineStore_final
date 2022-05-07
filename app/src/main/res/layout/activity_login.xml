@@ -48,7 +48,7 @@
                     style="@style/modifiedEditText"
                     android:backgroundTintMode="add"
                     android:backgroundTint="@color/gray"
-                    android:hint="@string/login_email_hint"
+                    android:hint="Email hoặc Username"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>

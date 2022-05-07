@@ -662,6 +662,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return user;
     }
+    public User getUserByUsername(String username) { //Lấy User bằng Email
+        User user = null;
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
+        String sql = "SELECT * FROM User WHERE Username = '" + username + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        int recordCount = db.rawQuery(sql, null).getCount();
+        if (cursor.moveToFirst()) {
+            user = new User(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getBlob(5),
+                    cursor.getInt(6));
+        }
+        cursor.close();
+        db.close();
+        return user;
+    }
 
     public List<User> getUsers() { //Lấy danh sách User
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
@@ -753,7 +772,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean loginIsSuccess(String email, String password) { //Đăng nhập
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
-        String sql = "SELECT * FROM User WHERE Email = '" + email + "'" + " AND Password = '" + md5(password) +"'" ;
+        String sql = "SELECT * FROM User WHERE (Email = '" + email + "' OR Username = '" + email + "')" + " AND Password = '" + md5(password) +"'" ;
         int recordCount = db.rawQuery(sql, null).getCount();
         db.close();
         if (recordCount > 0)

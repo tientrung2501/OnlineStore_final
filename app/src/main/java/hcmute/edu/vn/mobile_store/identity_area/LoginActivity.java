@@ -73,14 +73,17 @@ public class LoginActivity extends AppCompatActivity {
     {
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-
+        //Login with email or username
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
         if (dbHelper.loginIsSuccess(email,password))
         {
             User curUser = dbHelper.getUser(email);
-
+            if(curUser ==null)
+            {
+                curUser=dbHelper.getUserByUsername(email);
+            }
             SharedPrefs.getInstance().put(CURRENT_ID, String.valueOf(curUser.getId()));
             SharedPrefs.getInstance().put(CURRENT_NAME, curUser.getName());
             SharedPrefs.getInstance().put(CURRENT_ROLE, curUser.getRole());
