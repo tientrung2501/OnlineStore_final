@@ -5,11 +5,17 @@ import static hcmute.edu.vn.mobile_store.utils.Utility.FormatPrice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +23,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import hcmute.edu.vn.mobile_store.R;
@@ -60,6 +67,7 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.lvBillsDetail);
         Button btnCancelOrder = findViewById(R.id.cirCancelOrderButton);
         Button btnConfirmOrder = findViewById(R.id.cirConfirmOrderButton);
+        Button btnEditOrderInfo = findViewById(R.id.btnEditOrderInfo);
         TextView orderId = (TextView) findViewById(R.id.tvOrderId);
         TextView orderStatus = (TextView) findViewById(R.id.tvStatusOrder);
         TextView orderDate = (TextView) findViewById(R.id.tvStartDateOrder);
@@ -119,6 +127,10 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         }
+        if (dbHelper.getUser(curUserId).getRole() == 2 &&
+                curBill.getStatus().equals("processing")) {
+            btnEditOrderInfo.setVisibility(View.INVISIBLE);
+        }
     }
 
     public String convertStatusOrder (String status) {
@@ -142,6 +154,57 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
         dbHelper.updateBill(curBill);
         Toast.makeText(getApplicationContext(), "Hủy đơn hàng thành công!", Toast.LENGTH_SHORT).show();
         loadData();
+    }
+
+    public void editOrderInfo (View view) {
+        Context context = view.getRootView().getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View formElementsView = inflater.inflate(R.layout.bill_input_form, null, false);
+
+        EditText etAddress =  (EditText) formElementsView.findViewById(R.id.etAddress);
+        EditText etPhone =  (EditText) formElementsView.findViewById(R.id.etPhone);
+
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(formElementsView)
+                .setTitle("Chỉnh sửa đơn hàng")
+                .setPositiveButton("Hoàn tất", null).create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                etAddress.setText(curBill.getAddress());
+                etPhone.setText(curBill.getPhone());
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String address = etAddress.getText().toString();
+                        String phone = etPhone.getText().toString();
+                        if(TextUtils.isEmpty(address))
+                        {
+                            etAddress.requestFocus();
+                            etAddress.setError("Bạn phải nhập địa chỉ!");
+                        }
+                        else if(TextUtils.isEmpty(phone))
+                        {
+                            etPhone.requestFocus();
+                            etPhone.setError("Bạn phải nhập số điện thoại!");
+                        }
+                        else{
+                            curBill.setAddress(address);
+                            curBill.setPhone(phone);
+
+                            dbHelper.updateBill(curBill);
+                            Toast.makeText(getApplicationContext(), "Bạn đã chỉnh sửa thành công!", Toast.LENGTH_SHORT).show();
+                            loadData();
+                            dialog.dismiss();
+                        }
+                    }
+                });
+            }
+        });
+        dialog.show();
     }
 
     public void confirmOrder (View view) {
