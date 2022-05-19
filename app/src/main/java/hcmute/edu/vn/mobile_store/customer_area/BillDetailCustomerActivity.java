@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +49,10 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
     Bill curBill;
     User user;
     SimpleDateFormat formatterDate;
+
+    //broadcast
+    private final String SEND_ORDER_ACTION = "hcmute.edu.vn.mobile_store.ACTION";
+    private final String SEND_ORDER_KEY = "hcmute.edu.vn.mobile_store.KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +148,8 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
         switch (status) {
             case "processing":
                 return "(Đang chờ xác nhận)";
+            case "accepted":
+                return "(Đang đợi người giao hàng)";
             case "delivery":
                 return "(Đang giao hàng)";
             case "complete":
@@ -209,10 +222,21 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
 
     public void confirmOrder (View view) {
         if (user.getRole() != 2){ //User không phải là khách hàng
-            curBill.setStatus("delivery");
+            curBill.setStatus("accepted");
 
             dbHelper.updateBill(curBill);
             Toast.makeText(getApplicationContext(), "Xác nhận đơn hàng thành công!", Toast.LENGTH_SHORT).show();
+
+            // send broadcast to shipper
+            List<Bill> billList  = dbHelper.getAcceptedBills();
+            Intent sendBroadCastIntent = new Intent(SEND_ORDER_ACTION);
+            Gson gson = new Gson();
+            JsonArray jsonArray = gson.toJsonTree(billList).getAsJsonArray();
+            String strJson = jsonArray.toString();
+
+            sendBroadCastIntent.putExtra(SEND_ORDER_KEY, strJson);
+            sendBroadcast(sendBroadCastIntent);
+            System.out.println("Send broadcast success");
         }
         else {
             curBill.setStatus("complete");

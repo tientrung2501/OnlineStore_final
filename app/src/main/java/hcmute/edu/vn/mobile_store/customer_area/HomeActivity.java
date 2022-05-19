@@ -15,9 +15,15 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.edu.vn.mobile_store.adapter.CategoryListAdapter;
+import hcmute.edu.vn.mobile_store.models.Bill;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.adapter.ProductListCustomerAdapter;
 import hcmute.edu.vn.mobile_store.R;
@@ -29,11 +35,27 @@ public class HomeActivity extends AppCompatActivity {
     DatabaseHelper dbHelper= null;
     ImageButton btnSearch;
     EditText edtSearch;
+
+    //broadcast
+    private final String SEND_ORDER_ACTION = "hcmute.edu.vn.mobile_store.ACTION";
+    private final String SEND_ORDER_KEY = "hcmute.edu.vn.mobile_store.KEY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         dbHelper = new DatabaseHelper(this, getFilesDir().getAbsolutePath());
+
+        // send broadcast to shipper
+        List<Bill> billList  = dbHelper.getAcceptedBills();
+        Intent sendBroadCastIntent = new Intent(SEND_ORDER_ACTION);
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(billList).getAsJsonArray();
+        String strJson = jsonArray.toString();
+
+        sendBroadCastIntent.putExtra(SEND_ORDER_KEY, strJson);
+        sendBroadcast(sendBroadCastIntent);
+        System.out.println(billList);
+        System.out.println("Send broadcast success");
 
         TextView tvHello = findViewById(R.id.tvHello);
 
@@ -49,21 +71,20 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId())
-                {
+                switch (menuItem.getItemId()) {
                     case R.id.home:
                         return true;
                     case R.id.bill:
-                        startActivity(new Intent(getApplicationContext(),BillListCustomerActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), BillListCustomerActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.cart:
-                        startActivity(new Intent(getApplicationContext(),CartActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.info:
-                        startActivity(new Intent(getApplicationContext(),InfoActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
@@ -71,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         loadData();
-        edtSearch = (EditText)findViewById(R.id.edSearch);
+        edtSearch = (EditText) findViewById(R.id.edSearch);
 
         btnSearch = (ImageButton) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +101,6 @@ public class HomeActivity extends AppCompatActivity {
                 search();
             }
         });
-
     }
     private void search(){
         String search = edtSearch.getText().toString();

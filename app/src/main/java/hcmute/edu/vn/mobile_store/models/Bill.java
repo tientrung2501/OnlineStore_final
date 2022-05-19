@@ -1,8 +1,5 @@
 package hcmute.edu.vn.mobile_store.models;
 
-import java.time.DateTimeException;
-import java.util.Date;
-
 public class Bill {
     public int getId() {
         return id;

@@ -578,6 +578,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public List<Bill> getAcceptedBills() {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
+        String query = "SELECT * FROM Bill WHERE Status = 'accepted'";
+        Cursor cursor = db.rawQuery(query, null);
+        List<Bill> list = new ArrayList<Bill>();
+        while(cursor.moveToNext()) {
+            Bill bill = new Bill(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getDouble(2),
+                    cursor.getInt(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6));
+            list.add(bill);
+        }
+        db.close();
+        return list;
+    }
+
     public boolean isUserHasCart(int userId) { //Kiểm tra User hiện đang có giỏ hàng không
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
         String sql = "SELECT * FROM Bill WHERE Status = 'incomplete' AND UserId =" + userId;
