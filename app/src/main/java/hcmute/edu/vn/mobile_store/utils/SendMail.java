@@ -56,13 +56,13 @@ public class SendMail extends AsyncTask{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = ProgressDialog.show(context,"Sending message","Please wait...",false,false);
+        progressDialog = ProgressDialog.show(context,"Đang gửi Email","Vui lòng chờ",false,false);
     }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         progressDialog.dismiss();
-        Toast.makeText(context,"Message Sent",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Email đã được gửi",Toast.LENGTH_LONG).show();
     }
 }

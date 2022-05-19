@@ -106,7 +106,7 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
 
         listView.setAdapter(new BillDetailAdapter(this, lBillDetail,lProduct));
 
-        if (user.getRole() != 2){ //User không phải là khách hàng
+        if (dbHelper.getUser(curUserId).getRole() != 2){ //User không phải là khách hàng
             btnConfirmOrder.setText("Xác nhận đơn hàng");
             // Chỉ hiện nút xác nhận khi đơn hàng chưa được xác nhận
             if (!curBill.getStatus().equals("processing")) {
@@ -138,8 +138,8 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         }
-        if (dbHelper.getUser(curUserId).getRole() == 2 &&
-                curBill.getStatus().equals("processing")) {
+        if (dbHelper.getUser(curUserId).getRole() == 2 ||
+                !curBill.getStatus().equals("processing")) {
             btnEditOrderInfo.setVisibility(View.INVISIBLE);
         }
     }
@@ -221,7 +221,7 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
     }
 
     public void confirmOrder (View view) {
-        if (user.getRole() != 2){ //User không phải là khách hàng
+        if (dbHelper.getUser(curUserId).getRole() != 2){ //User không phải là khách hàng
             curBill.setStatus("accepted");
 
             dbHelper.updateBill(curBill);
