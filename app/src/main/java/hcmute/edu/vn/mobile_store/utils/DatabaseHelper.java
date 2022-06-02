@@ -578,9 +578,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<Bill> getAcceptedBills() {
+    public List<Bill> getDeliveryBills() {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
-        String query = "SELECT * FROM Bill WHERE Status = 'accepted'";
+        String query = "SELECT * FROM Bill WHERE Status = 'delivery'";
         Cursor cursor = db.rawQuery(query, null);
         List<Bill> list = new ArrayList<Bill>();
         while(cursor.moveToNext()) {
@@ -735,6 +735,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateUser(User user) { //Cập nhật User
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
+        ContentValues values = new ContentValues();
+        values.put("Name", user.getName());
+        values.put("Username", user.getUsername()  );
+        values.put("Email", user.getEmail());
+//        values.put("Password", md5(user.getPassword()));
+        values.put("Image", user.getImage());
+        values.put("Role", user.getRole());
+        boolean updateSuccessful = db.update("User", values,
+                "Id = ?", new String[]{ String.valueOf(user.getId()) }) > 0;
+        db.close();
+        return updateSuccessful;
+    }
+
+    public boolean updateUserPass(User user) { //Cập nhật User
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
         ContentValues values = new ContentValues();
         values.put("Name", user.getName());

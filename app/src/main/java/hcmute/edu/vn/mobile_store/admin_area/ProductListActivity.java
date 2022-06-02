@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -38,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hcmute.edu.vn.mobile_store.models.Bill;
 import hcmute.edu.vn.mobile_store.utils.DatabaseHelper;
 import hcmute.edu.vn.mobile_store.R;
 import hcmute.edu.vn.mobile_store.adapter.ProductListAdapter;
@@ -49,6 +52,8 @@ import hcmute.edu.vn.mobile_store.utils.SharedPrefs;
 
 import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_ID;
 import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_NAME;
+import static hcmute.edu.vn.mobile_store.utils.Utility.SEND_ORDER_ACTION;
+import static hcmute.edu.vn.mobile_store.utils.Utility.SEND_ORDER_KEY;
 import static hcmute.edu.vn.mobile_store.utils.Utility.convertCompressedByteArrayToBitmap;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -67,6 +72,20 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         dbHelper = new DatabaseHelper(this, getFilesDir().getAbsolutePath());
+
+        // send broadcast to shipper
+        List<Bill> billList  = dbHelper.getDeliveryBills();
+        Intent sendBroadCastIntent = new Intent(SEND_ORDER_ACTION);
+//        IntentFilter sendBroadCastIntent = new IntentFilter();
+//        sendBroadCastIntent.addAction(SEND_ORDER_ACTION);
+//        sendBroadCastIntent.addAction("android.intent.action.TIME_TICK");
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.toJsonTree(billList).getAsJsonArray();
+        String strJson = jsonArray.toString();
+
+        sendBroadCastIntent.putExtra(SEND_ORDER_KEY, strJson);
+        sendBroadcast(sendBroadCastIntent);
+        System.out.println("Send broadcast success");
 
         Button btnCreateProduct = (Button) findViewById(R.id.btnCreateProduct);
         TextView tvLogOut = findViewById(R.id.tvLogOut);

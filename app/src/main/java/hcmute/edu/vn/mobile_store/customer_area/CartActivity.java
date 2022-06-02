@@ -2,8 +2,13 @@ package hcmute.edu.vn.mobile_store.customer_area;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,6 +50,10 @@ public class CartActivity extends AppCompatActivity {
     DatabaseHelper dbHelper = null;
     int curUserId;
     SimpleDateFormat formatterDate;
+
+    String CHANNEL_ID = "CHANNEL_ID";
+    String CHANNEL_NAME = "CHANNEL_NAME";
+    String CHANNEL_DESCRIPTION = "CHANNEL_DESCRIPTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +116,7 @@ public class CartActivity extends AppCompatActivity {
                     @Override
                     public void onShow(DialogInterface dialogInterface) {
 
+                        //Nhấn nút đặt hàng
                         Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -134,7 +144,16 @@ public class CartActivity extends AppCompatActivity {
                                     curCart.setDate(dateBill);
 
                                     dbHelper.updateBill(curCart);
+
+                                    List<BillDetail> lBillDetail = dbHelper.getBillDetailByBillId(curCart.getId());
+                                    for ( BillDetail object : lBillDetail) {
+                                        Product product = dbHelper.getProduct(object.getProductId());
+                                        product.setStock(product.getStock() - object.getQuantity());
+                                        dbHelper.updateProduct(product);
+                                    }
+
                                     Toast.makeText(getApplicationContext(), "Bạn đã đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                                    showNotification("Online Store", "Đặt hàng thành công!");
                                     loadData();
                                     dialog.dismiss();
                                 }
@@ -211,6 +230,7 @@ public class CartActivity extends AppCompatActivity {
         tvQuantity.setText(String.valueOf(billDetail.getQuantity()));
         ivImage.setImageBitmap(convertCompressedByteArrayToBitmap(product.getImage()));
 
+        // Giảm số lượng món hàng
         btnMinus.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 if(Integer.parseInt(tvQuantity.getText().toString()) > 0) {
@@ -219,11 +239,14 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+        // Tăng số lượng món hàng
         btnPlus.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                if(Integer.parseInt(tvQuantity.getText().toString()) < 10) {
+                if(Integer.parseInt(tvQuantity.getText().toString()) <= product.getStock() - 1) {
                     tvQuantity.setText( String.valueOf(Integer.parseInt(tvQuantity.getText().toString()) + 1) );
                     tvPrice.setText(FormatPrice(product.getPrice()* Integer.parseInt(tvQuantity.getText().toString())));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sản phẩm đã đạt số lượng tối đa!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -266,5 +289,34 @@ public class CartActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         }).show();
+    }
+
+    private void showNotification(String title, String context) {
+        NotificationManager nm = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            nm = (NotificationManager) getSystemService(NotificationManager.class);
+        }
+        //tao notification channel
+        NotificationChannel channel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESCRIPTION);
+            nm.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(context)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent contentIntent = new Intent(this, CartActivity.class);
+        PendingIntent pendingContentIntent = PendingIntent.getActivity(this, 0,
+                contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingContentIntent);
+        Notification notification = builder.build();
+
+        nm.notify(0, notification);
     }
 }

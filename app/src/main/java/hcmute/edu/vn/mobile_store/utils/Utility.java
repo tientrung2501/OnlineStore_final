@@ -11,6 +11,11 @@ public class  Utility {
     public static final String CURRENT_ID = "current_id";
     public static final String CURRENT_NAME = "current_name";
     public static final String CURRENT_ROLE = "current_role";
+    public static final String BILL_ID = "bill_id";
+
+    //broadcast
+    public final static String SEND_ORDER_ACTION = "hcmute.edu.vn.mobile_store.ACTION";
+    public final static String SEND_ORDER_KEY = "hcmute.edu.vn.mobile_store.KEY";
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -30,4 +35,5 @@ public class  Utility {
         String result = format.format(price);
         return result;
     }
+
 }

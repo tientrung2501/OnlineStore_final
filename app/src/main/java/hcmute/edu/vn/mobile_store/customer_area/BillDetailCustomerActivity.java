@@ -222,13 +222,13 @@ public class BillDetailCustomerActivity extends AppCompatActivity {
 
     public void confirmOrder (View view) {
         if (dbHelper.getUser(curUserId).getRole() != 2){ //User không phải là khách hàng
-            curBill.setStatus("accepted");
+            curBill.setStatus("delivery");
 
             dbHelper.updateBill(curBill);
             Toast.makeText(getApplicationContext(), "Xác nhận đơn hàng thành công!", Toast.LENGTH_SHORT).show();
 
             // send broadcast to shipper
-            List<Bill> billList  = dbHelper.getAcceptedBills();
+            List<Bill> billList  = dbHelper.getDeliveryBills();
             Intent sendBroadCastIntent = new Intent(SEND_ORDER_ACTION);
             Gson gson = new Gson();
             JsonArray jsonArray = gson.toJsonTree(billList).getAsJsonArray();

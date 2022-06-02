@@ -1,8 +1,14 @@
 package hcmute.edu.vn.mobile_store.customer_area;
 
+import static hcmute.edu.vn.mobile_store.utils.Utility.BILL_ID;
+import static hcmute.edu.vn.mobile_store.utils.Utility.CURRENT_ID;
+import static hcmute.edu.vn.mobile_store.utils.Utility.SEND_ORDER_ACTION;
+import static hcmute.edu.vn.mobile_store.utils.Utility.SEND_ORDER_KEY;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,9 +42,6 @@ public class HomeActivity extends AppCompatActivity {
     ImageButton btnSearch;
     EditText edtSearch;
 
-    //broadcast
-    private final String SEND_ORDER_ACTION = "hcmute.edu.vn.mobile_store.ACTION";
-    private final String SEND_ORDER_KEY = "hcmute.edu.vn.mobile_store.KEY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +49,36 @@ public class HomeActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this, getFilesDir().getAbsolutePath());
 
         // send broadcast to shipper
-        List<Bill> billList  = dbHelper.getAcceptedBills();
+        List<Bill> billList  = dbHelper.getDeliveryBills();
         Intent sendBroadCastIntent = new Intent(SEND_ORDER_ACTION);
+//        IntentFilter sendBroadCastIntent = new IntentFilter();
+//        sendBroadCastIntent.addAction(SEND_ORDER_ACTION);
+//        sendBroadCastIntent.addAction("android.intent.action.TIME_TICK");
         Gson gson = new Gson();
         JsonArray jsonArray = gson.toJsonTree(billList).getAsJsonArray();
         String strJson = jsonArray.toString();
 
         sendBroadCastIntent.putExtra(SEND_ORDER_KEY, strJson);
         sendBroadcast(sendBroadCastIntent);
-        System.out.println(billList);
         System.out.println("Send broadcast success");
+
+        //Shipper accept bill then change status of bill to delivery
+        Bundle b = getIntent().getExtras();
+        String strBillId = "";
+        System.out.println(strBillId);
+        if(b!=null){
+            strBillId = b.getString("DATA_FROM_SHIP");
+        }
+
+        Integer billId = -1;
+        if (!strBillId.equalsIgnoreCase("")) billId = Integer.parseInt(strBillId);
+        if ( billId > 0) {
+            Bill bill = dbHelper.getBill(billId);
+            if (bill.getStatus().equalsIgnoreCase("accepted")) {
+                bill.setStatus("delivery");
+                dbHelper.updateBill(bill);
+            }
+        }
 
         TextView tvHello = findViewById(R.id.tvHello);
 

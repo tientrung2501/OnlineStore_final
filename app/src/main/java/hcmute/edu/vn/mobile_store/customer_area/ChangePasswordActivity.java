@@ -59,7 +59,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 if(newPass.equals(confirmPass))
                 {
                     user.setPassword(newPass);
-                    dbHelper.updateUser(user);
+                    dbHelper.updateUserPass(user);
                     //Logout
                     SharedPrefs.getInstance().put(CURRENT_ID, "");
                     SharedPrefs.getInstance().put(CURRENT_NAME, null);

@@ -84,12 +84,12 @@ public class ProductActivity extends AppCompatActivity {
                                 curQuantityInCart = billDetail.getQuantity();
                             }
                         }
-                        if(curQuantityInCart<10)
+                        if(curQuantityInCart < 10 && curQuantityInCart <= product.getStock() - 1)
                         {
                             showDiaglogAddInCart(curQuantityInCart);
                         }
                         else{
-                            Toast.makeText(getApplicationContext(), "Giỏ hàng chỉ có thể chứa tối đa 10 sản phẩm này!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Sản phẩm này đã đạt số lượng tối đa!", Toast.LENGTH_SHORT).show();
                         }
                 }
                 return false;
@@ -122,12 +122,13 @@ public class ProductActivity extends AppCompatActivity {
         });
         btnPlus.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                if(Integer.parseInt(tvQuantity.getText().toString()) < (10 - curQuantityInCart)) {
+                if(Integer.parseInt(tvQuantity.getText().toString()) < (10 - curQuantityInCart) &&
+                        Integer.parseInt(tvQuantity.getText().toString()) <= product.getStock() - 1) {
                     tvQuantity.setText( String.valueOf(Integer.parseInt(tvQuantity.getText().toString()) + 1) );
                     tvPrice.setText(FormatPrice(product.getPrice()* Integer.parseInt(tvQuantity.getText().toString())));
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Giỏ hàng chỉ có thể chứa tối đa 10 sản phẩm này!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Sản phẩm đã đạt số lượng tối đa!", Toast.LENGTH_SHORT).show();
             }
         });
 

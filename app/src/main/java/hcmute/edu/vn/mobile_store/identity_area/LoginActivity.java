@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         if (dbHelper.loginIsSuccess(email,password))
         {
             User curUser = dbHelper.getUser(email);
-            if(curUser ==null)
+            if(curUser == null)
             {
                 curUser=dbHelper.getUserByUsername(email);
             }
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
-            window.setStatusBarColor(getResources().getColor(R.color.register_bk_color));
+            window.setStatusBarColor(getResources().getColor(R.color.blueMinistop));
         }
     }
 }

@@ -76,6 +76,11 @@ public class BillListCustomerAdapter  extends BaseAdapter {
             holder.status.setText("Đang giao hàng");
             holder.status.setTextColor(Color.rgb(255,158,0));
         }
+        else if (bill.getStatus().equals("accepted"))
+        {
+            holder.status.setText("Đang đợi người giao hàng xác nhận");
+            holder.status.setTextColor(Color.rgb(255,158,0));
+        }
         else if (bill.getStatus().equals("complete"))
         {
             holder.status.setText("Đã nhận hàng");

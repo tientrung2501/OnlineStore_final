@@ -47,7 +47,6 @@
             android:windowSoftInputMode="adjustPan">
 
             <!-- ADD HERE!!!! >>>>>>>>>> -->
-
         </activity>
         <activity android:name=".identity_area.ForgotPasswordActivity" />
         <activity
